@@ -61,7 +61,7 @@ describe("UserTable", () => {
     const bodyRows = rows.slice(1);
 
     const firstDataRow = within(bodyRows[0]).getAllByRole("cell");
-    expect(firstDataRow[0]).toHaveTextContent("Alice");
+    expect(firstDataRow[0]).toHaveTextContent("1");
   });
 
   it("abre dialog de criação e envia", async () => {
@@ -125,7 +125,7 @@ describe("UserTable", () => {
     );
 
     expect(emptyCell).toBeInTheDocument();
-    expect(emptyCell).toHaveAttribute("colspan", "5");
+    expect(emptyCell).toHaveAttribute("colspan", "6");
     expect(
       screen.queryByRole("button", { name: /editar/i })
     ).not.toBeInTheDocument();

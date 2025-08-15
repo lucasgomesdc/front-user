@@ -106,6 +106,7 @@ export const UserTable = ({ users }: { users: UserDto[] }) => {
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead>ID</TableHead>
             <TableHead>Nome</TableHead>
             <TableHead>Email</TableHead>
             <TableHead>Criado</TableHead>
@@ -117,7 +118,7 @@ export const UserTable = ({ users }: { users: UserDto[] }) => {
           {sorted.length === 0 ? (
             <TableRow>
               <TableCell
-                colSpan={5}
+                colSpan={6}
                 className="h-32 text-center text-muted-foreground"
               >
                 Ainda não há usuários cadastrados. Cadastre para começar a
@@ -127,6 +128,7 @@ export const UserTable = ({ users }: { users: UserDto[] }) => {
           ) : (
             sorted.map((user) => (
               <TableRow key={user.id}>
+                <TableCell>{user.id}</TableCell>
                 <TableCell>{user.name}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>

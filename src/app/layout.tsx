@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Abinbev User Management",
+  title: "AB InBev User Management",
   description: "Project created by Lucas Eduardo Gomes",
 };
 
