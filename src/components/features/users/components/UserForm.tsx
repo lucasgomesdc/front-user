@@ -20,19 +20,18 @@ interface UserFormProps {
   onSubmit: (values: UserFormValues) => void | Promise<void>;
 }
 
-export type UserFormValues = z.infer<typeof schema>;
-
 const MIN_LENGTH = 2;
 
 const schema = z.object({
-  name: z
-    .string()
-    .trim()
-    .min(MIN_LENGTH, { message: `Mínimo ${MIN_LENGTH} caracteres` }),
+  name: z.string().trim().min(MIN_LENGTH, { message: `Mínimo 2 caracteres` }),
   email: z
-    .email({ message: "Email inválido" })
-    .transform((v) => v.toLowerCase()),
+    .string()
+    .transform((s) => s.trim())
+    .pipe(z.email({ message: "Email inválido" }))
+    .transform((s) => s.toLowerCase()),
 });
+
+export type UserFormValues = z.infer<typeof schema>;
 
 export const UserForm = ({
   defaultValues,
@@ -51,9 +50,15 @@ export const UserForm = ({
     });
   }, [form, defaultValues]);
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    void form.handleSubmit((data) => onSubmit(data))(event);
+  };
+
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4">
         <FormField
           control={form.control}
           name="name"
@@ -85,8 +90,13 @@ export const UserForm = ({
           )}
         />
         <div className="flex justify-end gap-2">
-          <Button type="submit" disabled={loading}>
-            {loading ? "Salvando..." : "Salvar"}
+          <Button
+            type="submit"
+            disabled={
+              loading || form.formState.isSubmitting || !form.formState.isValid
+            }
+          >
+            {loading || form.formState.isSubmitting ? "Salvando..." : "Salvar"}
           </Button>
         </div>
       </form>

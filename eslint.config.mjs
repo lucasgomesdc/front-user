@@ -13,6 +13,7 @@ const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
     rules: {
+      "import/no-commonjs": "off",
       "@typescript-eslint/no-unused-vars": [
         "error",
         {

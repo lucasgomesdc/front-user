@@ -3,6 +3,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -32,6 +33,9 @@ export const CreateUserDialog = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Cadastrar Usuário</DialogTitle>
+          <DialogDescription>
+            Preencha nome e e-mail para criar um novo usuário.
+          </DialogDescription>
         </DialogHeader>
         <UserForm
           onSubmit={async (userDto) => {

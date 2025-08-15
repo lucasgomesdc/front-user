@@ -1,13 +1,13 @@
 "use client";
 
-import { FormEvent } from "react";
+import { FormEventHandler } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 interface SearchByIdFormProps {
   value: string;
   onChange: (v: string) => void;
-  onSubmit: (e: FormEvent) => void;
+  onSubmit: FormEventHandler<HTMLFormElement>;
   loading?: boolean;
 }
 
@@ -22,7 +22,7 @@ export const SearchByIdForm = ({
       <Input
         placeholder="ID do usuário"
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(event) => onChange(event.target.value)}
         className="w-[220px]"
       />
       <Button type="submit" variant="secondary" disabled={!!loading}>

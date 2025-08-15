@@ -3,6 +3,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -36,10 +37,13 @@ export const EditUserDialog = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Editar Usuário</DialogTitle>
+          <DialogDescription>
+            Atualize os dados do usuário e clique em salvar.
+          </DialogDescription>
         </DialogHeader>
         <UserForm
           defaultValues={defaultValues}
-          onSubmit={onSubmit}
+          onSubmit={(values) => onSubmit(values)}
           loading={loading}
         />
       </DialogContent>

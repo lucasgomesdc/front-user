@@ -3,6 +3,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -29,6 +30,9 @@ export const DeleteUserDialog = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Tem certeza que deseja excluir {user.name}?</DialogTitle>
+          <DialogDescription>
+            Essa ação não pode ser desfeita. Confirme para remover o usuário.
+          </DialogDescription>
         </DialogHeader>
         <div className="flex justify-end gap-2">
           <Button variant="outline" onClick={onCancel} disabled={loading}>
