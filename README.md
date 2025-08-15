@@ -7,6 +7,7 @@ Aplicação **front-end** desenvolvida com **Next.js** para gerenciamento de usu
 - [Next.js](https://nextjs.org/) (React)
 - Node.js **v20**
 - TailwindCSS
+- React Query
 - Outras bibliotecas listadas no `package.json`
 
 ## 📋 Pré-requisitos
