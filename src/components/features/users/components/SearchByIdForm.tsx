@@ -20,7 +20,7 @@ export const SearchByIdForm = ({
   return (
     <form onSubmit={onSubmit} className="flex items-center gap-2">
       <Input
-        placeholder="ID do usuário"
+        placeholder="Preencha o ID do usuário"
         value={value}
         onChange={(event) => onChange(event.target.value)}
         className="w-[220px]"

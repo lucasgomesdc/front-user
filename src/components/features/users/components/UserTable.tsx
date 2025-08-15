@@ -89,7 +89,7 @@ export const UserTable = ({ users }: { users: UserDto[] }) => {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Usuários</h2>
+        <h2 className="text-xl font-semibold">Gestão de Usuários</h2>
         <div className="flex items-center gap-2">
           <SearchByIdForm
             value={searchId}
@@ -114,46 +114,58 @@ export const UserTable = ({ users }: { users: UserDto[] }) => {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {sorted.map((user) => (
-            <TableRow key={user.id}>
-              <TableCell>{user.name}</TableCell>
-              <TableCell>{user.email}</TableCell>
-              <TableCell>
-                {new Date(user.createdAt).toLocaleString("pt-BR")}
+          {sorted.length === 0 ? (
+            <TableRow>
+              <TableCell
+                colSpan={5}
+                className="h-32 text-center text-muted-foreground"
+              >
+                Ainda não há usuários cadastrados. Cadastre para começar a
+                exibir.
               </TableCell>
-              <TableCell>
-                {new Date(user.updatedAt).toLocaleString("pt-BR")}
-              </TableCell>
-              <TableCell className="text-right space-x-2">
-                <EditUserDialog
-                  open={!!editing && editing.id === user.id}
-                  onOpenChange={(open) =>
-                    open ? setEditing(user) : setEditing(null)
-                  }
-                  defaultValues={{ name: user.name, email: user.email }}
-                  onSubmit={handleEdit}
-                  loading={updating}
-                >
+            </TableRow>
+          ) : (
+            sorted.map((user) => (
+              <TableRow key={user.id}>
+                <TableCell>{user.name}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>
+                  {new Date(user.createdAt).toLocaleString("pt-BR")}
+                </TableCell>
+                <TableCell>
+                  {new Date(user.updatedAt).toLocaleString("pt-BR")}
+                </TableCell>
+                <TableCell className="text-right space-x-2">
+                  <EditUserDialog
+                    open={!!editing && editing.id === user.id}
+                    onOpenChange={(open) =>
+                      open ? setEditing(user) : setEditing(null)
+                    }
+                    defaultValues={{ name: user.name, email: user.email }}
+                    onSubmit={handleEdit}
+                    loading={updating}
+                  >
+                    <Button
+                      className="cursor-pointer"
+                      size="sm"
+                      variant="outline"
+                      onClick={() => setEditing(user)}
+                    >
+                      Editar
+                    </Button>
+                  </EditUserDialog>
                   <Button
                     className="cursor-pointer"
                     size="sm"
-                    variant="outline"
-                    onClick={() => setEditing(user)}
+                    variant="destructive"
+                    onClick={() => setDeleting(user)}
                   >
-                    Editar
+                    Excluir
                   </Button>
-                </EditUserDialog>
-                <Button
-                  className="cursor-pointer"
-                  size="sm"
-                  variant="destructive"
-                  onClick={() => setDeleting(user)}
-                >
-                  Excluir
-                </Button>
-              </TableCell>
-            </TableRow>
-          ))}
+                </TableCell>
+              </TableRow>
+            ))
+          )}
         </TableBody>
       </Table>
 

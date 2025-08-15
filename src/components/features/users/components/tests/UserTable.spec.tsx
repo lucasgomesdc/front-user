@@ -111,4 +111,26 @@ describe("UserTable", () => {
 
     expect(await screen.findByText(/editar usuário/i)).toBeInTheDocument();
   });
+
+  it("mostra a mensagem centralizada quando não há usuários", () => {
+    render(<UserTable users={[]} />);
+
+    const body = screen.getAllByRole("rowgroup")[1];
+
+    const bodyRows = within(body).getAllByRole("row");
+    expect(bodyRows).toHaveLength(1);
+
+    const emptyCell = within(bodyRows[0]).getByText(
+      /ainda não há usuários cadastrados\. cadastre para começar a exibir\./i
+    );
+
+    expect(emptyCell).toBeInTheDocument();
+    expect(emptyCell).toHaveAttribute("colspan", "5");
+    expect(
+      screen.queryByRole("button", { name: /editar/i })
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: /excluir/i })
+    ).not.toBeInTheDocument();
+  });
 });

@@ -20,7 +20,7 @@ describe("SearchByIdForm", () => {
       />
     );
 
-    const input = screen.getByPlaceholderText(/id do usuário/i);
+    const input = screen.getByPlaceholderText(/Preencha o ID do usuário/i);
     await user.type(input, "123");
     expect(handleChange).toHaveBeenCalledTimes(3);
 
