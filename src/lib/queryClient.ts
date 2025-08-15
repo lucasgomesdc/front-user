@@ -1,8 +1,8 @@
 "use client";
 import { QueryClient } from "@tanstack/react-query";
 
-let _client: QueryClient | null = null;
-export function getQueryClient() {
-  if (!_client) _client = new QueryClient();
-  return _client;
-}
+let queryClient: QueryClient | null = null;
+export const getQueryClient = () => {
+  if (!queryClient) queryClient = new QueryClient();
+  return queryClient;
+};

@@ -1,7 +1,11 @@
 "use client";
 import axios from "axios";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { UserDto, CreateUserDto, UpdateUserDto } from "@/types/user";
+import {
+  UserDto,
+  CreateUserDto,
+  UpdateUserDto,
+} from "@/components/features/users/types/user";
 
 const api = axios.create({ baseURL: process.env.NEXT_PUBLIC_API_URL });
 

@@ -14,22 +14,31 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-const schema = z.object({
-  name: z.string().min(2, "Mínimo 2 caracteres"),
-  email: z.string().email("Email inválido"),
-});
-
-export type UserFormValues = z.infer<typeof schema>;
-
-export function UserForm({
-  defaultValues,
-  loading,
-  onSubmit,
-}: {
+interface UserFormProps {
   defaultValues?: Partial<UserFormValues>;
   loading?: boolean;
   onSubmit: (values: UserFormValues) => void | Promise<void>;
-}) {
+}
+
+export type UserFormValues = z.infer<typeof schema>;
+
+const MIN_LENGTH = 2;
+
+const schema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(MIN_LENGTH, { message: `Mínimo ${MIN_LENGTH} caracteres` }),
+  email: z
+    .email({ message: "Email inválido" })
+    .transform((v) => v.toLowerCase()),
+});
+
+export const UserForm = ({
+  defaultValues,
+  loading,
+  onSubmit,
+}: UserFormProps) => {
   const form = useForm<UserFormValues>({
     resolver: zodResolver(schema),
     defaultValues: { name: "", email: "", ...defaultValues },
@@ -40,8 +49,7 @@ export function UserForm({
       name: defaultValues?.name ?? "",
       email: defaultValues?.email ?? "",
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [defaultValues?.name, defaultValues?.email]);
+  }, [form, defaultValues]);
 
   return (
     <Form {...form}>
@@ -84,4 +92,4 @@ export function UserForm({
       </form>
     </Form>
   );
-}
+};
